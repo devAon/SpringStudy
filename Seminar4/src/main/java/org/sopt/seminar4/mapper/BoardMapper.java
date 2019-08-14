@@ -10,7 +10,6 @@ import java.util.List;
 
 @Mapper
 public interface BoardMapper {
-
     @Select("SELECT * FROM board")
     List<Board> findAll();
 }
