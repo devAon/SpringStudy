@@ -16,7 +16,6 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
     private final BoardMapper boardMapper;
 
-    @Autowired
     public BoardServiceImpl(BoardMapper boardMapper) {
         this.boardMapper = boardMapper;
     }
