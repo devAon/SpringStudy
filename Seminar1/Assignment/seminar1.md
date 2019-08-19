@@ -8,8 +8,7 @@
   * 새로운 인스턴스(객체, new)를 생성할 수 없다.
   * 자식만이 객체를 생성할 수 있으며 상속 받은 자식이 구현을 반드시 하도록 해야할 떄 사용. (is-a)
 
-* 차이점
-목적이 다름
+* 차이점 (목적이 다름)
   * 인터페이스
     * 목적 : 구현 객체가 같은 동작을 한다는 것을 보장하기 위한 목적.
     * 특징 : 클래스가 아니기 때문에 인터페이스는 다중 상속 o
@@ -18,13 +17,13 @@
     * 특징 : 다중상속 x, 멤버 변수 존재 가능, 구현된 메서드 존재 가능 
 
 #### 오버라이딩 vs오버로딩
-* 부모 것(원래 sleep())
+* 부모 것(원래 sleep())  
 ``` public void sleep() { System.out.println(this.name+" zzz"); } ```
 
-* 오버라이딩(Overriding == 덮어쓰기) :  메소드 덮어쓰기
+* 오버라이딩(Overriding == 덮어쓰기) :  메소드 덮어쓰기  
 ``` public void sleep() { System.out.println(this.name+" zzz in house"); } ```
 
-* 오버로딩(Overloading == 추가) : 입력항목이 다른 경우 동일한 이름의 메소드를 만듦
+* 오버로딩(Overloading == 추가) : 입력항목이 다른 경우 동일한 이름의 메소드를 만듦  
 ``` public void sleep(int hour) { System.out.println(this.name+" zzz in house for " + hour + " hours"); } ```
 
 #### 제네릭 <T>
