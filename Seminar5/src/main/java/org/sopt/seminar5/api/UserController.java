@@ -2,10 +2,13 @@ package org.sopt.seminar5.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.sopt.seminar5.dto.User;
+import org.sopt.seminar5.model.SignUpReq;
 import org.sopt.seminar5.service.UserService;
+import org.sopt.seminar5.utils.auth.Auth;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -36,27 +39,50 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity signUp(@RequestBody final User user) {
+    public ResponseEntity signUp(SignUpReq signUpReq, @RequestPart(value = "profile", required = false) final MultipartFile profile) {
         try {
-            return new ResponseEntity<>(userService.signUp(user), HttpStatus.OK);
+            if(profile != null){
+                signUpReq.setProfile(profile);
+            }
+            return new ResponseEntity<>(userService.signUp(signUpReq), HttpStatus.OK);
         }catch (Exception e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @Auth
     @PutMapping("/{idx}")
-    public ResponseEntity updateUser(@PathVariable(value = "idx") final int idx, @RequestBody final User user) {
+    public ResponseEntity updateUser(@PathVariable(value = "idx") final int idx,
+                                     SignUpReq signUpReq,
+                                     @RequestPart(value = "profile", required=false)final MultipartFile profile) {
         try {
-            return new ResponseEntity<>(userService.updateUser(idx, user), HttpStatus.OK);
+            if(profile != null){
+                signUpReq.setProfile(profile);
+            }
+            return new ResponseEntity<>(userService.updateUser(idx, signUpReq), HttpStatus.OK);
         }catch (Exception e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /*@Auth
+    @DeleteMapping("/{idx}")
+    public ResponseEntity deleteByUserIdx(
+            @RequestHeader("Authorization") final String header,
+            @PathVariable(value = "idx") final int idx) {
+        try {
+            return new ResponseEntity<>(userService.deleteByUserIdx(idx), HttpStatus.OK);
+        }catch (Exception e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }*/
 
     @DeleteMapping("/{idx}")
-    public ResponseEntity deleteByUserIdx(@PathVariable(value = "idx") final int idx) {
+    public ResponseEntity deleteByUserIdx(
+            @PathVariable(value = "idx") final int idx) {
         try {
             return new ResponseEntity<>(userService.deleteByUserIdx(idx), HttpStatus.OK);
         }catch (Exception e) {

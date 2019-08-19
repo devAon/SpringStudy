@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.sopt.seminar5.dto.User;
 import org.sopt.seminar5.mapper.UserMapper;
 import org.sopt.seminar5.model.DefaultRes;
+import org.sopt.seminar5.model.SignUpReq;
+import org.sopt.seminar5.service.S3FileUploadService;
 import org.sopt.seminar5.service.UserService;
 import org.sopt.seminar5.utils.ResponseMessage;
 import org.sopt.seminar5.utils.StatusCode;
@@ -17,9 +19,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
+    private S3FileUploadService s3FileUploadService;
 
-    public UserServiceImpl(UserMapper userMapper) {
+    public UserServiceImpl(UserMapper userMapper, S3FileUploadService s3FileUploadService) {
         this.userMapper = userMapper;
+        this.s3FileUploadService = s3FileUploadService;
     }
 
     @Override
@@ -53,9 +57,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public DefaultRes signUp(final User user) {
+    public DefaultRes signUp(SignUpReq signUpReq) {
         try{
-            userMapper.signUp(user);
+            if(signUpReq.getProfile() != null){
+                signUpReq.setProfileUrl(s3FileUploadService.upload(signUpReq.getProfile()));
+            }
+            userMapper.signUp(signUpReq);
             return DefaultRes.res(StatusCode.CREATED, ResponseMessage.CREATED_USER);
         }catch(Exception e){
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -64,27 +71,26 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
-    @Override
-    @Transactional
-    public DefaultRes updateUser(int idx, User user) {
-        final User tempUser = userMapper.findByUserIdx(idx);
-        if(tempUser == null){
-            return DefaultRes.res(StatusCode.NOT_FOUND, ResponseMessage.NOT_FOUND_USER);
-        }
-        try{
-            if(user.getName() != null && user.getPart() != null){
-                tempUser.setName(user.getName());
-                tempUser.setPart(user.getPart());
-            }
-            userMapper.updateUser(idx, tempUser);
-            return DefaultRes.res(StatusCode.NO_CONTENT, ResponseMessage.UPDATE_USER);
-        }catch(Exception e){
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error(e.getMessage());
-            return DefaultRes.res(StatusCode.DB_ERROR, ResponseMessage.DB_ERROR);
-        }
-    }
+   @Override
+   @Transactional
+   public DefaultRes updateUser(int idx, final SignUpReq signUpReq) {
+       final User tempUser = userMapper.findByUserIdx(idx);
+       if(tempUser == null){
+           return DefaultRes.res(StatusCode.NOT_FOUND, ResponseMessage.NOT_FOUND_USER);
+       }
+       try{
+           if(signUpReq.getName() != null && signUpReq.getPart() != null){
+               tempUser.setName(signUpReq.getName());
+               tempUser.setPart(signUpReq.getPart());
+           }
+           userMapper.updateUser(idx, tempUser);
+           return DefaultRes.res(StatusCode.NO_CONTENT, ResponseMessage.UPDATE_USER);
+       }catch(Exception e){
+           TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+           log.error(e.getMessage());
+           return DefaultRes.res(StatusCode.DB_ERROR, ResponseMessage.DB_ERROR);
+       }
+   }
 
     @Override
     @Transactional

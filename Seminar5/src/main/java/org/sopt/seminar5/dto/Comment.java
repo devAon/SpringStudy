@@ -5,9 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class User {
+public class Comment {
     private int idx;
-    private String name;
-    private String part;
-    private String profileUrl;
+    private int user_idx;
+    private String content;
 }

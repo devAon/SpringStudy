@@ -9,4 +9,5 @@ public class Board {
     private int idx;
     private String title;
     private String contents;
+    private String profileUrl;
 }
