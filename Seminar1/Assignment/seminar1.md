@@ -19,15 +19,15 @@
 
 #### 오버라이딩 vs오버로딩
 * 부모 것(원래 sleep())
-```public void sleep() { System.out.println(this.name+" zzz"); }```
+``` public void sleep() { System.out.println(this.name+" zzz"); } ```
 
 * 오버라이딩(Overriding == 덮어쓰기) :  메소드 덮어쓰기
-```public void sleep() { System.out.println(this.name+" zzz in house"); }```
+``` public void sleep() { System.out.println(this.name+" zzz in house"); } ```
 
 * 오버로딩(Overloading == 추가) : 입력항목이 다른 경우 동일한 이름의 메소드를 만듦
-```public void sleep(int hour) { System.out.println(this.name+" zzz in house for " + hour + " hours"); }```
+``` public void sleep(int hour) { System.out.println(this.name+" zzz in house for " + hour + " hours"); } ```
 
-#### 제넥릭 <T>
+#### 제네릭 <T>
 * 클래스 내부에서 사용할 데이터 타입을 외부에서 지정하는 기법
 * 다양한 타입의 객체를 다루는 메소드나, 컬렉션 클래스에서 컴파일 시 타입체크해주는 기능
 * 장점
@@ -46,6 +46,7 @@
   * 데이터의 순서에 상관 없이 객체를 만듦
   * 명시적이어서 명확하게 이해하는데 용이함
   * 불필요한 생성자를 만들지 않고 객체를 만듦
+
 
 
 
@@ -68,6 +69,7 @@ Spring boot란?
 * Servlet Container를 기본 내장하고 있음(Tomcat, Jetty)
 * pom.xml에서 의존 라이브러리의 버전을 자동으로 관리해줌
 * 설정을 자동으로 해줌.
+
 
 
 
