@@ -60,7 +60,9 @@ public class CommentServiceImpl implements CommentService {
             return DefaultRes.res(StatusCode.NOT_FOUND, ResponseMessage.NOT_FOUND_COMMENT);
         }
         try{
+            log.error(toString().valueOf(commentReq.getContent()));
             if(commentReq.getContent() != null){
+                log.error("commentReq.getContent()" + toString().valueOf(commentReq.getContent()));
                 tempComment.setContent(commentReq.getContent());
                 commentMapper.updateComment(idx, tempComment);
                 return DefaultRes.res(StatusCode.NO_CONTENT, ResponseMessage.UPDATE_COMMENT_SUCCESS);

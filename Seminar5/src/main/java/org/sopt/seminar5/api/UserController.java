@@ -51,7 +51,6 @@ public class UserController {
         }
     }
 
-    @Auth
     @PutMapping("/{idx}")
     public ResponseEntity updateUser(@PathVariable(value = "idx") final int idx,
                                      SignUpReq signUpReq,
@@ -66,19 +65,6 @@ public class UserController {
             return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    /*@Auth
-    @DeleteMapping("/{idx}")
-    public ResponseEntity deleteByUserIdx(
-            @RequestHeader("Authorization") final String header,
-            @PathVariable(value = "idx") final int idx) {
-        try {
-            return new ResponseEntity<>(userService.deleteByUserIdx(idx), HttpStatus.OK);
-        }catch (Exception e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
 
     @DeleteMapping("/{idx}")
     public ResponseEntity deleteByUserIdx(

@@ -3,7 +3,6 @@ package org.sopt.seminar5.mapper;
 import org.apache.ibatis.annotations.*;
 import org.sopt.seminar5.dto.Comment;
 import org.sopt.seminar5.model.CommentReq;
-import org.sopt.seminar5.model.LoginReq;
 
 import java.util.List;
 
