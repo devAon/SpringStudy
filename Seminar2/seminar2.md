@@ -64,17 +64,17 @@
   * DELETE : 삭제. DELETE 
 * Status Code
   * 2xx : Success
-   *200
-   *201
+   * 200
+   * 201
   * 3xx : Redirect
-   *304
+   * 304
   * 4xx : Client Error
-   *400
-   *401
-   *404
-   *405
+   * 400
+   * 401
+   * 404
+   * 405
   * 5xx : Server Error
-   *500   
+   * 500   
   
   
    
