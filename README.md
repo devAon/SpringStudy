@@ -6,7 +6,7 @@
 ### [Seminar1](https://github.com/devAon/SpringStudy/blob/master/Seminar1/Assignment/seminar1.md)  
 
 ### [Seminar2](https://github.com/devAon/SpringStudy/blob/master/Seminar2/seminar2.md)  
-### [[Spring Security] JWT(JSON Web Token) 의 모든 것](https://aonee.tistory.com/70)
+### [[Spring Security] JWT(JSON Web Token) 의 모든 것-정의, 구성, 특징, 과정, 장단점](https://aonee.tistory.com/70)
 
 
 
